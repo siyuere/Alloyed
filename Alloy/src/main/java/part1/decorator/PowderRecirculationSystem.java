@@ -1,9 +1,7 @@
-package part1.features;
+package part1.decorator;
 import part1.machine.AmMachine;
 
 public class PowderRecirculationSystem extends MachineFeatureDecorator {
-    AmMachine machine;
-
     public PowderRecirculationSystem(AmMachine machine) {
         this.machine = machine;
     }

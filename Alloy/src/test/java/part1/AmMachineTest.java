@@ -1,7 +1,7 @@
 package part1;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import part1.features.MachineFeatureBuilder;
+import part1.builder.MachineFeatureBuilder;
 import part1.machine.AmMachine;
 
 import static org.junit.Assert.assertEquals;

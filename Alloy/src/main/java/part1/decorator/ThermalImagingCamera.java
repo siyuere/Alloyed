@@ -1,10 +1,8 @@
-package part1.features;
+package part1.decorator;
 
 import part1.machine.AmMachine;
 
 public class ThermalImagingCamera extends MachineFeatureDecorator {
-    AmMachine machine;
-
     public ThermalImagingCamera(AmMachine machine) {
         this.machine = machine;
     }

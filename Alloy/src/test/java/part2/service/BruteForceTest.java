@@ -3,7 +3,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import part2.model.Alloy;
 import part2.model.Element;
-import part2.utils.AlloyPropertyUtil;
+import part2.util.AlloyPropertyUtils;
 
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ import static part2.model.Element.ofBaseElement;
 import static part2.model.Element.ofElement;
 
 class BruteForceTest {
-    private final AlloyPropertyUtil MockAlloyPropertyService = new AlloyPropertyUtil();
+    private final AlloyPropertyUtils MockAlloyPropertyService = new AlloyPropertyUtils();
     private final BruteForce MockBruteForce = new BruteForce(MockAlloyPropertyService);
     private Alloy testAlloy;
 

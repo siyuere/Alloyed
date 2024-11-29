@@ -1,10 +1,8 @@
-package part1.features;
+package part1.decorator;
 
 import part1.machine.AmMachine;
 
 public class Photodiodes extends MachineFeatureDecorator {
-    AmMachine machine;
-
     public Photodiodes(AmMachine machine) {
         this.machine = machine;
     }

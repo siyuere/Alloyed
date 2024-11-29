@@ -2,7 +2,7 @@ package part2.service;
 
 import part2.model.Alloy;
 import part2.model.Element;
-import part2.utils.AlloyPropertyUtil;
+import part2.util.AlloyPropertyUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 public class BruteForce implements AlloyOptimizationService {
-    private final AlloyPropertyUtil alloyPropertyService;
+    private final AlloyPropertyUtils alloyPropertyService;
 
-    public BruteForce(AlloyPropertyUtil alloyPropertyService) {
+    public BruteForce(AlloyPropertyUtils alloyPropertyService) {
         this.alloyPropertyService = alloyPropertyService;
     }
 

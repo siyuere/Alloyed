@@ -1,10 +1,8 @@
-package part1.features;
+package part1.decorator;
 
 import part1.machine.AmMachine;
 
 public class ReducedBuildVolume extends MachineFeatureDecorator {
-    AmMachine machine;
-
     public ReducedBuildVolume(AmMachine machine) {
         this.machine = machine;
     }

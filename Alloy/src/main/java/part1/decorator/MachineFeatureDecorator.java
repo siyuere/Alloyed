@@ -1,11 +1,13 @@
-package part1.features;
+package part1.decorator;
 
 import part1.machine.AmMachine;
 
 public abstract class MachineFeatureDecorator extends AmMachine {
-    AmMachine machine;
+    protected AmMachine machine;
 
     public abstract String getDescription();
 
     public abstract double cost();
+
+
 }

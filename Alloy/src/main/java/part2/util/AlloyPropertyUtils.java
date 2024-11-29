@@ -1,13 +1,11 @@
-package part2.utils;
-
+package part2.util;
 import part2.model.Alloy;
 import part2.model.Element;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Map;
 
-public class AlloyPropertyUtil {
+public class AlloyPropertyUtils {
     // static: bond to class
     private static final DecimalFormat SCIENTIFIC_FORMAT = new DecimalFormat("0.00000E0");
 
