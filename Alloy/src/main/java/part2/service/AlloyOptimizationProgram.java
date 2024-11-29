@@ -2,6 +2,7 @@ package part2.service;
 
 import part2.model.Alloy;
 import part2.model.Element;
+import part2.utils.AlloyPropertyUtil;
 
 import java.math.BigDecimal;
 
@@ -24,7 +25,7 @@ public class AlloyOptimizationProgram {
         alloy.addElement(molybdenum);
 
         // Find the optimal alloy using the brute force approach
-        AlloyPropertyService alloyPropertyService = new AlloyPropertyService();
+        AlloyPropertyUtil alloyPropertyService = new AlloyPropertyUtil();
         BruteForce bruteForce = new BruteForce(alloyPropertyService);
         Alloy optimalAlloy = bruteForce.findBestCreepResistanceWithCost(alloy, 18);
         if (optimalAlloy != null) {

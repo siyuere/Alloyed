@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Alloy {
-    public Element baseElement;
-    private final List<Element> elements;
+    private Element baseElement;
+    private List<Element> elements;
     private BigDecimal creepResistance;
     private BigDecimal cost;
 
     public List<Element> getElements() {
             return elements;
-        }
+    }
 
     public Alloy(Element baseElement) {
         this.baseElement = baseElement;

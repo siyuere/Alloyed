@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import part2.model.Alloy;
 import part2.model.Element;
+import part2.utils.AlloyPropertyUtil;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -18,12 +19,12 @@ import static part2.model.Element.ofElement;
 
 public class AlloyPropertyServiceTest {
     private Alloy testAlloy;
-    private AlloyPropertyService mockAlloyPropertyService;
+    private AlloyPropertyUtil mockAlloyPropertyService;
     private DecimalFormat mockScientificFormat;
 
     @BeforeEach
     public void setUp() {
-        mockAlloyPropertyService = new AlloyPropertyService();
+        mockAlloyPropertyService = new AlloyPropertyUtil();
         Element mockBaseElement = ofBaseElement("Ni", new BigDecimal("8.9"));  // Nickel as the base element with cost 8.9 £/kg
         Element chromium = ofElement("Cr", new BigDecimal("2.0911350E16"), new BigDecimal("14.0"), new BigDecimal("14.5"), new BigDecimal("22.0"), new BigDecimal("0.50"));  // Chromium with cost 14 £/kg
         Element cobalt = ofElement("Co", new BigDecimal("7.2380280E16"), new BigDecimal("80.5"), new BigDecimal("0.0"), new BigDecimal("25.0"), new BigDecimal("1.0"));  // Cobalt with cost 80.5 £/kg

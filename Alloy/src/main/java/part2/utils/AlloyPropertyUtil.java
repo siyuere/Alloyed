@@ -1,4 +1,4 @@
-package part2.service;
+package part2.utils;
 
 import part2.model.Alloy;
 import part2.model.Element;
@@ -7,8 +7,9 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Map;
 
-public class AlloyPropertyService {
-    private final DecimalFormat scientificFormat = new DecimalFormat("0.00000E0");
+public class AlloyPropertyUtil {
+    // static: bond to class
+    private static final DecimalFormat SCIENTIFIC_FORMAT = new DecimalFormat("0.00000E0");
 
     /**
      * Calculate the creep resistance of the given alloy composition.
@@ -29,7 +30,7 @@ public class AlloyPropertyService {
                 creepResistance = creepResistance.add(element.getCreepCoefficient().multiply(percentage));
             }
         }
-        return new BigDecimal(scientificFormat.format(creepResistance));
+        return new BigDecimal(SCIENTIFIC_FORMAT.format(creepResistance));
     }
 
     /**
@@ -61,6 +62,6 @@ public class AlloyPropertyService {
                 totalCost = totalCost.add(element.getCost().multiply(percentage).divide(BigDecimal.valueOf(100)));
             }
         }
-        return new BigDecimal(scientificFormat.format(totalCost));
+        return new BigDecimal(SCIENTIFIC_FORMAT.format(totalCost));
     }
 }
