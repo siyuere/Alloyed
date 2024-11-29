@@ -1,40 +1,42 @@
 package part2.model;
 
+import java.math.BigDecimal;
+
 public class Element {
     private String name;
-    private double creepCoefficient;
-    private double cost;
-    private double minPercent;
-    private double maxPercent;
-    private double percentage;
+    private BigDecimal creepCoefficient;
+    private BigDecimal cost;
+    private BigDecimal minPercent;
+    private BigDecimal maxPercent;
+    private BigDecimal percentage;
 
     public String getName() {
         return name;
     }
 
-    public double getCreepCoefficient() {
+    public BigDecimal getCreepCoefficient() {
         return creepCoefficient;
     }
 
-    public double getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public double getMinPercent() {
+    public BigDecimal getMinPercent() {
         return minPercent;
     }
 
-    public double getMaxPercent() {
+    public BigDecimal getMaxPercent() {
         return maxPercent;
     }
 
-    public double getStepPercent() {
+    public BigDecimal getStepPercent() {
         return stepPercent;
     }
 
-    private double stepPercent;
+    private BigDecimal stepPercent;
 
-    public static Element ofElement(String name, double creepCoefficient, double cost, double minPercent, double maxPercent, double stepPercent) {
+    public static Element ofElement(String name, BigDecimal creepCoefficient, BigDecimal cost, BigDecimal minPercent, BigDecimal maxPercent, BigDecimal stepPercent) {
         Element element = new Element();
         element.name = name;
         element.creepCoefficient = creepCoefficient;
@@ -45,18 +47,18 @@ public class Element {
         return element;
     }
 
-    public static Element ofBaseElement(String name,  double cost) {
+    public static Element ofBaseElement(String name, BigDecimal cost) {
         Element element = new Element();
         element.name = name;
         element.cost = cost;
         return element;
     }
 
-    public double getPercentage() {
+    public BigDecimal getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(double percentage) {
+    public void setPercentage(BigDecimal percentage) {
         this.percentage = percentage;
     }
 }

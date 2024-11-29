@@ -1,41 +1,66 @@
 package part2.service;
+
 import part2.model.Alloy;
 import part2.model.Element;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Map;
 
 public class AlloyPropertyService {
+    private final DecimalFormat scientificFormat = new DecimalFormat("0.00000E0");
 
-    public BigDecimal calculateCreepResistance(Map<String, Double> composition, Alloy alloy) {
-        double creepResistance = 0;
-        for (Element element : alloy.getElements()) {
-            Double percentage = composition.get(element.getName());
-            if (percentage != null && percentage >= 0) {
-                creepResistance += (element.getCreepCoefficient() * percentage);
-            }
+    /**
+     * Calculate the creep resistance of the given alloy composition.
+     *
+     * @param composition the composition of the alloy
+     * @param alloy the alloy object
+     * @return the calculated creep resistance
+     */
+    public BigDecimal calculateCreepResistance(Map<String, BigDecimal> composition, Alloy alloy) {
+        if (composition == null || alloy == null) {
+            throw new IllegalArgumentException("Composition and alloy must not be null");
         }
 
-        return BigDecimal.valueOf(creepResistance).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal creepResistance = BigDecimal.ZERO;
+        for (Element element : alloy.getElements()) {
+            BigDecimal percentage = composition.get(element.getName());
+            if (percentage != null && percentage.compareTo(BigDecimal.ZERO) >= 0) {
+                creepResistance = creepResistance.add(element.getCreepCoefficient().multiply(percentage));
+            }
+        }
+        return new BigDecimal(scientificFormat.format(creepResistance));
     }
 
-    public double calculateCost(Map<String, Double> composition, Alloy alloy) {
-        double totalCost = 0;
-        double baseElementPercent = 100 - composition.values().stream().mapToDouble(Double::doubleValue).sum();
+    /**
+     * Calculate the cost of the given alloy composition.
+     *
+     * @param composition the composition of the alloy
+     * @param alloy the alloy object
+     * @return the calculated cost
+     */
+    public BigDecimal calculateCost(Map<String, BigDecimal> composition, Alloy alloy) {
+        if (composition == null || alloy == null) {
+            throw new IllegalArgumentException("Composition and alloy must not be null");
+        }
 
-        if (baseElementPercent < 0) {
+        BigDecimal totalCost = BigDecimal.ZERO;
+        BigDecimal baseElementPercent = BigDecimal.valueOf(100).subtract(
+                composition.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add)
+        );
+
+        if (baseElementPercent.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Total composition percentage exceeds 100%");
         }
 
-        totalCost += (alloy.baseElement.getCost() * baseElementPercent) / 100;
+        totalCost = totalCost.add(alloy.getBaseElement().getCost().multiply(baseElementPercent).divide(BigDecimal.valueOf(100)));
 
         for (Element element : alloy.getElements()) {
-            Double percentage = composition.get(element.getName());
-            if (percentage != null && percentage >= 0) {
-                totalCost += (element.getCost() * percentage) / 100;
+            BigDecimal percentage = composition.get(element.getName());
+            if (percentage != null && percentage.compareTo(BigDecimal.ZERO) >= 0) {
+                totalCost = totalCost.add(element.getCost().multiply(percentage).divide(BigDecimal.valueOf(100)));
             }
         }
-        return totalCost;
+        return new BigDecimal(scientificFormat.format(totalCost));
     }
 }

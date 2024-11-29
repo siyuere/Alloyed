@@ -1,13 +1,14 @@
 package part2.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Alloy {
     public Element baseElement;
     private final List<Element> elements;
-    private double creepResistance;
-    private double cost;
+    private BigDecimal creepResistance;
+    private BigDecimal cost;
 
     public List<Element> getElements() {
             return elements;
@@ -22,19 +23,23 @@ public class Alloy {
         this.elements.add(element);
     }
 
-    public void setCreepResistance(double creepResistance) {
+    public void setCreepResistance(BigDecimal creepResistance) {
         this.creepResistance = creepResistance;
     }
 
-    public double getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
-    public double getCreepResistance() {
+    public BigDecimal getCreepResistance() {
         return creepResistance;
+    }
+
+    public Element getBaseElement() {
+        return baseElement;
     }
 }
