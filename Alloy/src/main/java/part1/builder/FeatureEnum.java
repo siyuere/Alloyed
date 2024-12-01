@@ -1,9 +1,6 @@
 package part1.builder;
 
 public enum FeatureEnum {
-    LOW_POWER_MACHINE,
-    MEDIUM_POWER_MACHINE,
-    HIGH_POWER_MACHINE,
     POWDER_RECIRCULATION_SYSTEM,
     PHOTODIODES,
     QUAD_LASER,

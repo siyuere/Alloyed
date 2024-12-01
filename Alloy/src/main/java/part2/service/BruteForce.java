@@ -19,13 +19,10 @@ public class BruteForce implements AlloyOptimizationService {
 
     @Override
     public Alloy findBestCreepResistanceWithCost(Alloy alloy, double maxCost) {
-        // Brute force approach to find the alloy composition that provides the best creep resistance
-        // without exceeding the cost constraint.
         Map<String, BigDecimal> bestComposition = null;
         BigDecimal bestCreepResistance = BigDecimal.ZERO;
         BigDecimal alloyCost = BigDecimal.ZERO;
 
-        // Generate all possible combinations within the range and step size for each element
         List<Map<String, BigDecimal>> combinations = new ArrayList<>();
         generateCombinations(combinations, new HashMap<>(), 0, alloy.getElements());
 
@@ -47,18 +44,19 @@ public class BruteForce implements AlloyOptimizationService {
                 }
             }
         }
-
-        alloy.setCreepResistance(bestCreepResistance);
-        alloy.setCost(alloyCost);
-        for (Element element : alloy.getElements()) {
-            if (bestComposition != null) {
+        if (bestComposition != null) {
+            alloy.setCreepResistance(bestCreepResistance);
+            alloy.setCost(alloyCost);
+            for (Element element : alloy.getElements()) {
                 element.setPercentage(bestComposition.get(element.getName()));
             }
+            return alloy;
         }
-        return alloy;
+        return null;
     }
 
     private void generateCombinations(List<Map<String, BigDecimal>> combinations, Map<String, BigDecimal> currentComposition, int index, List<Element> elements) {
+        //generate all possible combinations of elements based on their min, max and step percent
         if (index == elements.size()) {
             combinations.add(new HashMap<>(currentComposition));
             return;

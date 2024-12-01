@@ -1,6 +1,8 @@
 package part1.machine;
 
-public class LowPowerMachine extends AmMachine {
+import part1.decorator.MachineFeatureDecorator;
+
+public class LowPowerMachine extends AmMachine{
     public LowPowerMachine() {
         description = "Low Power Machine (200W)";
     }

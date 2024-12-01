@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 import java.util.Map;
 
 public class AlloyPropertyUtils {
-    // static: bond to class
     private static final DecimalFormat SCIENTIFIC_FORMAT = new DecimalFormat("0.00000E0");
 
     /**
@@ -24,9 +23,10 @@ public class AlloyPropertyUtils {
         BigDecimal creepResistance = BigDecimal.ZERO;
         for (Element element : alloy.getElements()) {
             BigDecimal percentage = composition.get(element.getName());
-            if (percentage != null && percentage.compareTo(BigDecimal.ZERO) >= 0) {
-                creepResistance = creepResistance.add(element.getCreepCoefficient().multiply(percentage));
+            if (percentage == null || percentage.compareTo(BigDecimal.ZERO) < 0) {
+                throw new IllegalArgumentException("Percentage for element " + element.getName() + " must not be null or negative");
             }
+            creepResistance = creepResistance.add(element.getCreepCoefficient().multiply(percentage));
         }
         return new BigDecimal(SCIENTIFIC_FORMAT.format(creepResistance));
     }
@@ -48,7 +48,7 @@ public class AlloyPropertyUtils {
                 composition.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add)
         );
 
-        if (baseElementPercent.compareTo(BigDecimal.ZERO) < 0) {
+        if (baseElementPercent.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Total composition percentage exceeds 100%");
         }
 
@@ -56,9 +56,10 @@ public class AlloyPropertyUtils {
 
         for (Element element : alloy.getElements()) {
             BigDecimal percentage = composition.get(element.getName());
-            if (percentage != null && percentage.compareTo(BigDecimal.ZERO) >= 0) {
-                totalCost = totalCost.add(element.getCost().multiply(percentage).divide(BigDecimal.valueOf(100)));
+            if (percentage == null || percentage.compareTo(BigDecimal.ZERO) < 0) {
+                throw new IllegalArgumentException("Percentage for element " + element.getName() + " must not be null or negative");
             }
+            totalCost = totalCost.add(element.getCost().multiply(percentage).divide(BigDecimal.valueOf(100)));
         }
         return new BigDecimal(SCIENTIFIC_FORMAT.format(totalCost));
     }

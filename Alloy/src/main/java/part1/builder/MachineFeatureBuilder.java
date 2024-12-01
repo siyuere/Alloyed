@@ -6,17 +6,14 @@ import part1.machine.HighPowerMachine;
 import part1.machine.LowPowerMachine;
 import part1.machine.MediumPowerMachine;
 
-import java.util.Enumeration;
-
 public class MachineFeatureBuilder {
     private AmMachine machine;
-    private static AmMachine DEFAULT_MACHINE;
 
     public MachineFeatureBuilder(AmMachine machine) {
         this.machine = machine;
     }
 
-    private static class defaultMachine extends AmMachine {
+    private static final class DefaultMachine extends AmMachine {
         @Override
         public double cost() {
             return 0;
@@ -24,17 +21,16 @@ public class MachineFeatureBuilder {
 
         @Override
         public String getDescription() {
-            return '';
+            return "";
         }
     }
 
-    public static MachineFeatureBuilder newBuilder(String type) {
-        AmMachine machine = DEFAULT_MACHINE;
-        return new MachineFeatureBuilder(machine);
+    public static MachineFeatureBuilder newBuilder() {
+        return new MachineFeatureBuilder(new DefaultMachine());
     }
 
-    public MachineFeatureBuilder addFeature(FeatureEnum feature) {
-        switch (feature) {
+    public MachineFeatureBuilder setMachine(MachineTypeEnum machineType) {
+        switch (machineType) {
             case LOW_POWER_MACHINE:
                 this.machine = new LowPowerMachine();
                 break;
@@ -44,6 +40,14 @@ public class MachineFeatureBuilder {
             case HIGH_POWER_MACHINE:
                 this.machine = new HighPowerMachine();
                 break;
+            default:
+                throw new IllegalArgumentException("Unknown machine type: " + machineType);
+        }
+        return this;
+    }
+
+    public MachineFeatureBuilder addFeature(FeatureEnum feature) {
+        switch (feature) {
             case POWDER_RECIRCULATION_SYSTEM:
                 this.machine = new PowderRecirculationSystem(machine);
                 break;
@@ -66,6 +70,9 @@ public class MachineFeatureBuilder {
     }
 
     public AmMachine build() {
+        if (this.machine instanceof DefaultMachine) {
+        throw new IllegalStateException("Machine type must be set before building");
+    }
         return this.machine;
     }
 }

@@ -1,4 +1,5 @@
 package part2.service;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import part2.model.Alloy;
@@ -6,8 +7,7 @@ import part2.model.Element;
 import part2.util.AlloyPropertyUtils;
 
 import java.math.BigDecimal;
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static part2.model.Element.ofBaseElement;
 import static part2.model.Element.ofElement;
 

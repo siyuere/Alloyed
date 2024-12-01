@@ -1,7 +1,9 @@
 package part1;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import part1.builder.FeatureEnum;
 import part1.builder.MachineFeatureBuilder;
+import part1.builder.MachineTypeEnum;
 import part1.machine.AmMachine;
 
 import static org.junit.Assert.assertEquals;
@@ -11,11 +13,12 @@ class AmMachineTest {
 
     @Test
     void testMediumPowerMachineWithFeatures() {
-        mockBuilder = MachineFeatureBuilder.createMachine("medium");
+        mockBuilder = MachineFeatureBuilder.newBuilder();
 
-        AmMachine mockMachine = mockBuilder.addFeature("Reduced Build Volume")
-                                    .addFeature("Quad Laser")
-                                    .addFeature("Powder Recirculation System")
+        AmMachine mockMachine = mockBuilder.setMachine(MachineTypeEnum.MEDIUM_POWER_MACHINE)
+                                    .addFeature(FeatureEnum.REDUCED_BUILD_VOLUME)
+                                    .addFeature(FeatureEnum.QUAD_LASER)
+                                    .addFeature(FeatureEnum.POWDER_RECIRCULATION_SYSTEM)
                                     .build();
 
         Assertions.assertEquals(932000, mockMachine.cost(), 0);

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Alloy {
-    private Element baseElement;
-    private List<Element> elements;
+    private final Element baseElement;
+    private final List<Element> elements;
     private BigDecimal creepResistance;
     private BigDecimal cost;
 

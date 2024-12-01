@@ -1,6 +1,5 @@
 package part2.service;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import part2.model.Alloy;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static part2.model.Element.ofBaseElement;
 import static part2.model.Element.ofElement;
 
-public class AlloyPropertyServiceTest {
+public class AlloyPropertyUtilsTest {
     private Alloy testAlloy;
     private AlloyPropertyUtils mockAlloyPropertyService;
     private DecimalFormat mockScientificFormat;
@@ -50,7 +49,7 @@ public class AlloyPropertyServiceTest {
 
         BigDecimal actualCreepResistance = new BigDecimal(mockScientificFormat.format(mockAlloyPropertyService.calculateCreepResistance(composition, testAlloy)));
 
-        Assert.assertEquals(expectedCreepResistance, actualCreepResistance);
+        assertEquals(expectedCreepResistance, actualCreepResistance);
     }
 
     @Test
@@ -64,7 +63,7 @@ public class AlloyPropertyServiceTest {
 
         BigDecimal actualCreepResistance = new BigDecimal(mockScientificFormat.format(mockAlloyPropertyService.calculateCreepResistance(composition, testAlloy)));
 
-        Assert.assertEquals(expectedCreepResistance, actualCreepResistance);
+        assertEquals(expectedCreepResistance, actualCreepResistance);
     }
 
     @Test
@@ -78,17 +77,45 @@ public class AlloyPropertyServiceTest {
 
         BigDecimal actualCreepResistance = new BigDecimal(mockScientificFormat.format(mockAlloyPropertyService.calculateCreepResistance(composition, testAlloy)));
 
-        Assert.assertEquals(expectedCreepResistance, actualCreepResistance);
+        assertEquals(expectedCreepResistance, actualCreepResistance);
     }
 
     @Test
-    public void testCalculateCostWithInvalidComposition() {
+    public void testCalculateCostWithTotalCompositionPercentageExceeds100() {
         Map<String, BigDecimal> composition = new HashMap<>();
-        composition.put("Element1", new BigDecimal("60.0"));
-        composition.put("Element2", new BigDecimal("50.0"));
+        composition.put("Cr", new BigDecimal("60.0"));
+        composition.put("Co", new BigDecimal("50.0"));
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             mockAlloyPropertyService.calculateCost(composition, testAlloy);
         });
+
+        assertEquals("Total composition percentage exceeds 100%", exception.getMessage());
     }
+
+    @Test
+    public void testCalculateCostWithNegativeElementPercentage() {
+        Map<String, BigDecimal> composition = new HashMap<>();
+        composition.put("Cr", new BigDecimal("-60.0"));
+        composition.put("Co", new BigDecimal("50.0"));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            mockAlloyPropertyService.calculateCost(composition, testAlloy);
+        });
+
+        assertEquals("Percentage for element Cr must not be null or negative", exception.getMessage());
+    }
+
+    @Test
+    public void testCalculateCostWithNullComposition() {
+        Map<String, BigDecimal> composition = null;
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            mockAlloyPropertyService.calculateCost(composition, testAlloy);
+        });
+
+        assertEquals("Composition and alloy must not be null", exception.getMessage());
+    }
+
+
 }

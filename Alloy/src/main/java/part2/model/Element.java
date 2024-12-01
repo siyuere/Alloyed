@@ -9,6 +9,7 @@ public class Element {
     private BigDecimal minPercent;
     private BigDecimal maxPercent;
     private BigDecimal percentage;
+    private BigDecimal stepPercent;
 
     public String getName() {
         return name;
@@ -34,7 +35,13 @@ public class Element {
         return stepPercent;
     }
 
-    private BigDecimal stepPercent;
+    public BigDecimal getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(BigDecimal percentage) {
+        this.percentage = percentage;
+    }
 
     public static Element ofElement(String name, BigDecimal creepCoefficient, BigDecimal cost, BigDecimal minPercent, BigDecimal maxPercent, BigDecimal stepPercent) {
         Element element = new Element();
@@ -52,13 +59,5 @@ public class Element {
         element.name = name;
         element.cost = cost;
         return element;
-    }
-
-    public BigDecimal getPercentage() {
-        return percentage;
-    }
-
-    public void setPercentage(BigDecimal percentage) {
-        this.percentage = percentage;
     }
 }
