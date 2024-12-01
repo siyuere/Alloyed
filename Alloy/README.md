@@ -7,7 +7,7 @@ This part used a decorator design pattern, which is used to add new functionalit
 Single Responsibility Principle and Open/Closed Principle are applied. The Single Responsibility Principle is that a class, module, or function should only have one reason to change, or one job to do. The Open/Closed Principle is that a class should be open for extension but closed for modification.
 
 ### Class Diagram
-![Project Diagram](images/UML class.png)
+![Project Diagram](images/UML_class.png)
 ## Part 2: Alloy Optimisation
 
 This part includes the main functionality for finding the optimal alloy with the best creep resistance for a given cost.
